@@ -45,6 +45,7 @@ taoSinhVien ()
   SinhVien sv;
   cout << "Nhap ma sinh vien: ";
   cin >> sv.maSV;
+  cin.ignore();
   cout << "Nhap ho ten: ";
   cin.ignore ();
   cin.getline (sv.hoTen, 50);
@@ -150,10 +151,11 @@ timgiongngaysinh (const List &list, Ngay ngaySinh)
 void
 xoagiongngaysinh (List &list, Ngay ngaySinh)
 {
-  Node *current = list.first;
-  Node *prev = nullptr;
-  while (current)
+  Node *current = list.first; //Khởi tạo con trở current để duyệt danh sách
+  Node *prev = nullptr;       //Khởi tạo con trỏ prev giữ node trước
+  while (current) //Duyệt node
     {
+    //Kiểm tra ngày sinh của sinh viên trùng với ngày cần xoá
       if (current->data.ngaySinh.ngay == ngaySinh.ngay
           && current->data.ngaySinh.thang == ngaySinh.thang
           && current->data.ngaySinh.nam == ngaySinh.nam)
@@ -166,12 +168,13 @@ xoagiongngaysinh (List &list, Ngay ngaySinh)
             {
               list.first = current->link;
             }
-          Node *toDelete = current;
-          current = current->link;
-          delete toDelete;
+          Node *toDelete = current; //Lưu node cần xoá
+          current = current->link;  //Duyệt node kế tiếp
+          delete toDelete;          //Xoá node cần xoá
         }
       else
         {
+        //Nếu không trùng ngày sinh, di chuyển prev và current
           prev = current;
           current = current->link;
         }
